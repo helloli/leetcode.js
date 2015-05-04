@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<script type="text/javascript">
+/*
+Add Two Numbers Total Accepted: 57782 Total Submissions: 264260 My Submissions Question Solution 
+You are given two linked lists representing two non-negative numbers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+
+Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output: 7 -> 0 -> 8
+*/
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+function listNode(val){
+	this.val = val;
+	this.next = null;
+}
+var addTwoNumbers = function(l1, l2) {
+	var i = l1;
+	var j = l2;
+	var result = new listNode(null);
+	var temp = new listNode(null);
+	var lastNode = result;
+	var carry = 0;
+	while(i.next != null && j.next != null){
+		temp.val = (i.val + j.val + carry) % 10;
+		carry = (i.val + j.val + carry) / 10;
+		i = i.next;
+		j = j.next;
+		lastNode.next = temp;
+		lastNode = temp;
+	}
+
+	return result;
+}
+listNode.prototype = {
+	count:0,
+	add:function(val){
+		var node = new listNode(val);
+		if(this.count == 0){
+			this.root.next = node;
+		}else{
+			this.end.next = node;
+		}
+		this.end = node;
+		this.count ++;
+		return val;
+	},
+	show():function(){
+		var result = [];
+		var i = this;
+		while(i != null){
+			result.push(i.val);
+			i = i.next;
+		}
+		console.log(result);
+	}
+}
+l1
+addTwoNumbers()
+// function linkList(){
+// 	this.root = new listNode(null);
+// 	this.end = this.root;
+// }
+// linkList.prototype = {
+// 	count:0,
+// 	add:function(val){
+// 		var node = new listNode(val);
+// 		if(this.count == 0){
+// 			this.root.next = node;
+// 		}else{
+// 			this.end.next = node;
+// 		}
+// 		this.end = node;
+// 		this.count ++;
+// 		return val;
+// 	},
+// 	show:function(){
+// 		var result = [];
+// 		var i = this.root;
+// 		while(i != null){
+// 			result.push(i.val);
+// 			i = i.next;
+// 		}
+// 		console.log(result);
+// 	}
+// }
+// var l = new linkList();
+// l.add(5);
+// l.add(2);
+// l.add(2);
+// l.add(3);
+// l.add(4);
+// l.show();
+</script>
+</head>
+<body>
+</body>
+</html>

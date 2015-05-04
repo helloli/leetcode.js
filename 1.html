@@ -17,7 +17,6 @@ var twoSum = function(nums, target) {
 			arr[nums[index]] ++;
 		}
 	}
-	console.log("arr="+arr);
 	for(var i = 0,l = nums.length;i < l;i ++){
 		if(2*nums[i] == target && arr[nums[i]] == 2){
 			return [i + 1,nums.indexOf(nums[i],i + 1) + 1];

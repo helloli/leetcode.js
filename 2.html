@@ -22,42 +22,74 @@ Output: 7 -> 0 -> 8
  * @param {ListNode} l2
  * @return {ListNode}
  */
-function listNode(val){
+function ListNode(val){
 	this.val = val;
 	this.next = null;
 }
 var addTwoNumbers = function(l1, l2) {
 	var i = l1;
 	var j = l2;
-	var result = new listNode(null);
-	var temp = new listNode(null);
-	var lastNode = result;
 	var carry = 0;
-	while(i.next != null && j.next != null){
+	var count = 0;
+	while(i != null && j != null){
+		var temp = new ListNode(null);
 		temp.val = (i.val + j.val + carry) % 10;
-		carry = (i.val + j.val + carry) / 10;
+		carry = Math.floor((i.val + j.val + carry) / 10);
 		i = i.next;
 		j = j.next;
+		if(count == 0){
+			var result = temp;
+			var lastNode = result;
+			count ++;
+		}else{
+			lastNode.next = temp;
+			lastNode = temp;
+			count ++;
+		}
+	}
+	if(i == null && j != null){
+		while(j != null){
+			temp = new ListNode(null);
+			temp.val = (j.val + carry) % 10;
+			carry = Math.floor((j.val + carry) / 10);
+			j = j.next;
+			if(count == 0){
+				var result = temp;
+				var lastNode = result;
+				count ++;
+			}else{
+				lastNode.next = temp;
+				lastNode = temp;
+				count ++;
+			}
+		}
+	}else if(i != null && j == null){
+		while(i != null){
+			temp = new ListNode(null);
+			temp.val = (i.val + carry) % 10;
+			carry = Math.floor((i.val + carry) / 10);
+			i = i.next;
+			if(count == 0){
+				var result = temp;
+				var lastNode = result;
+				count ++;
+			}else{
+				lastNode.next = temp;
+				lastNode = temp;
+				count ++;
+			}
+		}
+	}
+	if(carry == 1){
+		temp = new ListNode(1);
 		lastNode.next = temp;
 		lastNode = temp;
+		count ++;
 	}
-
 	return result;
 }
-listNode.prototype = {
-	count:0,
-	add:function(val){
-		var node = new listNode(val);
-		if(this.count == 0){
-			this.root.next = node;
-		}else{
-			this.end.next = node;
-		}
-		this.end = node;
-		this.count ++;
-		return val;
-	},
-	show():function(){
+ListNode.prototype = {
+	show:function(){
 		var result = [];
 		var i = this;
 		while(i != null){
@@ -67,16 +99,20 @@ listNode.prototype = {
 		console.log(result);
 	}
 }
-l1
-addTwoNumbers()
+var l1 = new ListNode(5);
+var l2 = new ListNode(5);
+l1.show();
+l2.show();
+var result = addTwoNumbers(l1,l2);
+result.show();
 // function linkList(){
-// 	this.root = new listNode(null);
+// 	this.root = new ListNode(null);
 // 	this.end = this.root;
 // }
 // linkList.prototype = {
 // 	count:0,
 // 	add:function(val){
-// 		var node = new listNode(val);
+// 		var node = new ListNode(val);
 // 		if(this.count == 0){
 // 			this.root.next = node;
 // 		}else{
